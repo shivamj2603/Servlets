@@ -48,6 +48,12 @@ public class LoginServlet extends HttpServlet {
 			out.println("<font color=red>User name must contain min 3 characters and start with caps</font>");
 			rd.include(request, response);
 		}
+		else if(!pwd.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+			PrintWriter out = response.getWriter();
+			out.println("<font color=red>Password criteria not met</font>");
+			rd.include(request, response);
+		}
 		else if(userID.equals(user) && password.equals(pwd)){
 			request.setAttribute("user", user);
 			request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
